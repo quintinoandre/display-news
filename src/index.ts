@@ -23,7 +23,9 @@ void (async () => {
 
 				response.forEach((article: INewDTO) =>
 					console.log(
-						`${article.title}:\n${hotText.link(article.url)}\n`
+						`title: ${article.title}\nurl: ${hotText.link(
+							article.url
+						)}\nauthor: ${article.author}\nsource: ${article.source}\n`
 							.replace('<a href="', '')
 							.replace('">MDN</a>', '')
 					)
@@ -41,7 +43,9 @@ void (async () => {
 				for await (const value of generator) {
 					value.forEach((article: INewDTO) =>
 						console.log(
-							`${article.title}:\n${hotText.link(article.url)}\n`
+							`title: ${article.title}\nurl: ${hotText.link(
+								article.url
+							)}\nauthor: ${article.author}\nsource: ${article.source}\n`
 								.replace('<a href="', '')
 								.replace('">MDN</a>', '')
 						)

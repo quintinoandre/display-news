@@ -6,7 +6,7 @@
 	"scripts": {
 		"start": "node -r dotenv/config ./dist/index.js",
 		"build": "babel src --extensions \".js,.ts\" --out-dir dist --copy-files",
-		"dev": "tsnd -r tsconfig-paths/register -r dotenv/config --inspect --transpile-only --ignore-watch node_modules --respawn .",
+		"dev": "tsnd -r dotenv/config --inspect --transpile-only --ignore-watch node_modules --respawn .",
 		"test": "echo \"Error: no test specified\" && exit 1",
 		"lint": "eslint ./",
 		"lintFix": "eslint ./ --fix",
