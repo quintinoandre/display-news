@@ -1,7 +1,10 @@
 import { AxiosRequestConfig } from 'axios';
 
 interface IAxiosResponse<T = never> {
-	data: T;
+	data: {
+		hits: any[];
+		articles: any[];
+	};
 	status: number;
 	statusText: string;
 	headers: Record<string, string>;
@@ -10,10 +13,7 @@ interface IAxiosResponse<T = never> {
 }
 
 interface IClients {
-	findNews: (
-		subject: string,
-		numberOfNews: string
-	) => Promise<IAxiosResponse[]>;
+	findNews: (subject: string, numberOfNews: string) => Promise<IAxiosResponse>;
 }
 
 export { IClients, IAxiosResponse };
