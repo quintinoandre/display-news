@@ -48,7 +48,7 @@ async function getUserChoices(): Promise<IUserChoicesProps> {
 				value: EOptionsTypes.buffered,
 			},
 			{
-				title: 'Iterator (streamed)',
+				title: 'Iterator',
 				description:
 					'Displaying news as they become available using the iterator pattern. The news are not grouped by source.',
 				value: EOptionsTypes.iterator,
