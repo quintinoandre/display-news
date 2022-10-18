@@ -1,6 +1,8 @@
 import axios from 'axios';
 
-import { IAxiosResponse, IClients } from './IClients';
+import { INewDTO } from '../dtos/INewDTO';
+import { convertToNewDTO } from '../mappers/newMapper';
+import { IClients } from './IClients';
 
 const BASE_URL = 'https://newsapi.org/v2';
 
@@ -20,10 +22,14 @@ class NewsAPI implements IClients {
 	public async findNews(
 		subject: string,
 		numberOfNews: string
-	): Promise<IAxiosResponse> {
-		return api.get(
-			this.buildURL(`everything?q=${subject}&pageSize=${numberOfNews}`)
-		);
+	): Promise<INewDTO[]> {
+		return api
+			.get(this.buildURL(`everything?q=${subject}&pageSize=${numberOfNews}`))
+			.then((response) =>
+				response.data.articles.map((article: any) =>
+					convertToNewDTO({ ...article, source: this.url })
+				)
+			);
 	}
 }
 

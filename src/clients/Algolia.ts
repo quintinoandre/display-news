@@ -1,6 +1,8 @@
 import axios from 'axios';
 
-import { IAxiosResponse, IClients } from './IClients';
+import { INewDTO } from '../dtos/INewDTO';
+import { convertToNewDTO } from '../mappers/newMapper';
+import { IClients } from './IClients';
 
 const BASE_URL = 'http://hn.algolia.com/api/v1';
 
@@ -12,8 +14,14 @@ class Algolia implements IClients {
 	public async findNews(
 		subject: string,
 		numberOfNews: string
-	): Promise<IAxiosResponse> {
-		return api.get(`/search?query=${subject}&hitsPerPage=${numberOfNews}`);
+	): Promise<INewDTO[]> {
+		return api
+			.get(`/search?query=${subject}&hitsPerPage=${numberOfNews}`)
+			.then((response) =>
+				response.data.hits.map((article: any) =>
+					convertToNewDTO({ ...article, source: this.url })
+				)
+			);
 	}
 }
 
