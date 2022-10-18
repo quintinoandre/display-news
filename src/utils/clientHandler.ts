@@ -1,31 +1,14 @@
 import { Algolia } from '../clients/Algolia';
 import { NewsAPI } from '../clients/NewsAPI';
 import { INewDTO } from '../dtos/INewDTO';
-import { convertToNewDTO } from '../mappers/newMapper';
 
 function apiCalls(
 	subject: string,
 	numberOfNews: string
 ): Array<Promise<INewDTO[]>> {
-	const algolia = new Algolia();
-
-	const newsAPI = new NewsAPI();
-
 	return [
-		algolia
-			.findNews(subject, numberOfNews)
-			.then((response) =>
-				response.data.hits.map((article) =>
-					convertToNewDTO({ ...article, source: algolia.url })
-				)
-			),
-		newsAPI
-			.findNews(subject, numberOfNews)
-			.then((response) =>
-				response.data.articles.map((article) =>
-					convertToNewDTO({ ...article, source: newsAPI.url })
-				)
-			),
+		new Algolia().findNews(subject, numberOfNews),
+		new NewsAPI().findNews(subject, numberOfNews),
 	];
 }
 
